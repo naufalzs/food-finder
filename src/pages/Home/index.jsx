@@ -4,6 +4,7 @@ import { Box, Divider, Grid } from "@mui/material";
 import FilterPanel from "@/components/Home/FilterPanel";
 import ResultList from "@/components/Home/ResultList";
 import SearchBar from "@/components/Home/SearchBar";
+import EmptyList from "@/components/Home/EmptyList";
 
 import { categoryList, dataList, ratingList } from "@/constants";
 
@@ -144,7 +145,7 @@ export default function Home() {
           />
         </Grid>
         <Grid item xs>
-          <ResultList />
+          {list.length > 0 ? <ResultList /> : <EmptyList />}
         </Grid>
       </Grid>
     </Box>
