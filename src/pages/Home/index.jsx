@@ -11,9 +11,43 @@ export default function Home() {
   const allCategory = categoryList.map((item) => item.value);
 
   const [selectedCategory, setSelectedCategory] = useState(allCategory);
+  const [cuisineType, setCuisineType] = useState([
+    {
+      id: 1,
+      label: "American",
+      checked: true,
+    },
+    {
+      id: 2,
+      label: "Chinese",
+      checked: true,
+    },
+    {
+      id: 3,
+      label: "Italian",
+      checked: true,
+    },
+  ]);
+
   const [list, setList] = useState(dataList);
 
   const handleSelectCategory = (event, value) => setSelectedCategory(value);
+
+  const handleCuisineType = (id) => {
+    let updatedCuisine = cuisineType.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setCuisineType(updatedCuisine);
+  };
+
+  const handleAllCuisineType = (event) => {
+    setCuisineType(
+      cuisineType.map((item) => ({
+        ...item,
+        checked: event.target.checked,
+      }))
+    );
+  };
 
   const applyFilter = () => {
     let updatedList = dataList;
@@ -24,12 +58,21 @@ export default function Home() {
       });
     }
 
+    const selectedCuisine = cuisineType
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+    if (selectedCuisine.length > 0) {
+      updatedList = updatedList.filter((item) => {
+        return selectedCuisine.includes(item.cuisine);
+      });
+    }
+
     setList(updatedList);
   };
 
   useEffect(() => {
     applyFilter();
-  }, [selectedCategory]);
+  }, [selectedCategory, cuisineType]);
 
   return (
     <Box>
@@ -40,6 +83,9 @@ export default function Home() {
           <FilterPanel
             selectedCategory={selectedCategory}
             selectCategory={handleSelectCategory}
+            cuisineType={cuisineType}
+            selectCuisineType={handleCuisineType}
+            selectAllCuisineType={handleAllCuisineType}
           />
         </Grid>
         <Grid item xs>
