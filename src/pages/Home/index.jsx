@@ -16,6 +16,7 @@ export default function Home() {
   }));
   const allRating = newRatingList.map((item) => item.value);
 
+  const [searchInput, setSearchInput] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(allCategory);
   const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
   const [selectedRating, setSelectedRating] = useState(allRating);
@@ -39,6 +40,8 @@ export default function Home() {
   ]);
 
   const [list, setList] = useState(dataList);
+
+  const handleSearch = (event) => setSearchInput(event.target.value);
 
   const handleSelectCategory = (event, value) => setSelectedCategory(value);
 
@@ -64,6 +67,15 @@ export default function Home() {
 
   const applyFilter = () => {
     let updatedList = dataList;
+
+    // Search Filter
+    if (searchInput) {
+      updatedList = updatedList.filter((item) => {
+        return (
+          item.title.toLowerCase().search(searchInput.toLowerCase().trim()) !== -1
+        );
+      });
+    }
 
     // Category Filter
     if (selectedCategory.length > 0) {
@@ -103,11 +115,17 @@ export default function Home() {
 
   useEffect(() => {
     applyFilter();
-  }, [selectedCategory, cuisineType, selectedPrice, selectedRating]);
+  }, [
+    searchInput,
+    selectedCategory,
+    cuisineType,
+    selectedPrice,
+    selectedRating,
+  ]);
 
   return (
     <Box>
-      <SearchBar />
+      <SearchBar value={searchInput} changeInput={handleSearch} />
       <Divider />
       <Grid container>
         <Grid item sx={{ width: 300 }}>

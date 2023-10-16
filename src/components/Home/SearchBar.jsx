@@ -1,10 +1,7 @@
 import { Search } from "@mui/icons-material";
 import { InputBase, Stack } from "@mui/material";
-import { useState } from "react";
 
-export default function SearchBar() {
-  const [value, setValue] = useState("");
-
+export default function SearchBar({ value, changeInput }) {
   return (
     <Stack direction="row" alignItems="center" px={3} py={2}>
       <Search
@@ -21,7 +18,7 @@ export default function SearchBar() {
         inputProps={{ style: { fontSize: 24 } }}
         placeholder="Mushroom Risotto"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={changeInput}
       />
     </Stack>
   );
