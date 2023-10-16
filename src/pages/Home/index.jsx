@@ -11,6 +11,8 @@ export default function Home() {
   const allCategory = categoryList.map((item) => item.value);
 
   const [selectedCategory, setSelectedCategory] = useState(allCategory);
+  const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
+
   const [cuisineType, setCuisineType] = useState([
     {
       id: 1,
@@ -49,6 +51,8 @@ export default function Home() {
     );
   };
 
+  const handleSelectPrice = (event, value) => setSelectedPrice(value);
+
   const applyFilter = () => {
     let updatedList = dataList;
 
@@ -61,18 +65,26 @@ export default function Home() {
     const selectedCuisine = cuisineType
       .filter((item) => item.checked)
       .map((item) => item.label.toLowerCase());
+      
     if (selectedCuisine.length > 0) {
       updatedList = updatedList.filter((item) => {
         return selectedCuisine.includes(item.cuisine);
       });
     }
 
+    const minPrice = selectedPrice[0];
+    const maxPrice = selectedPrice[1];
+
+    updatedList = updatedList.filter((item) => {
+      return item.price >= minPrice && item.price <= maxPrice;
+    });
+
     setList(updatedList);
   };
 
   useEffect(() => {
     applyFilter();
-  }, [selectedCategory, cuisineType]);
+  }, [selectedCategory, cuisineType, selectedPrice]);
 
   return (
     <Box>
@@ -86,6 +98,8 @@ export default function Home() {
             cuisineType={cuisineType}
             selectCuisineType={handleCuisineType}
             selectAllCuisineType={handleAllCuisineType}
+            selectedPrice={selectedPrice}
+            selectPrice={handleSelectPrice}
           />
         </Grid>
         <Grid item xs>
