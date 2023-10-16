@@ -65,12 +65,14 @@ export default function Home() {
   const applyFilter = () => {
     let updatedList = dataList;
 
+    // Category Filter
     if (selectedCategory.length > 0) {
       updatedList = updatedList.filter((item) => {
         return selectedCategory.includes(item.category);
       });
     }
 
+    // Cuisine Filter
     const selectedCuisine = cuisineType
       .filter((item) => item.checked)
       .map((item) => item.label.toLowerCase());
@@ -81,6 +83,7 @@ export default function Home() {
       });
     }
 
+    // Price Range Filter
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
 
@@ -88,6 +91,7 @@ export default function Home() {
       return item.price >= minPrice && item.price <= maxPrice;
     });
 
+    // Rating Filter
     if (selectedRating.length > 0) {
       updatedList = updatedList.filter((item) => {
         return selectedRating.includes(item.rating);
