@@ -2,11 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import { FilterListToggle } from "../common/FilterListToggle";
 import { CheckboxProton } from "../common/CheckboxProton";
 import { CheckboxAllProton } from "../common/CheckboxAllProton";
-
-import { categoryList } from "@/constants";
 import { SliderProton } from "../common/SliderProton";
 
 export default function FilterPanel({
+  categoryList,
   selectedCategory,
   selectCategory,
   cuisineType,

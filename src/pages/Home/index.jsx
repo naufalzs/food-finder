@@ -108,6 +108,7 @@ export default function Home() {
       <Grid container>
         <Grid item sx={{ width: 300 }}>
           <FilterPanel
+            categoryList={categoryList}
             selectedCategory={selectedCategory}
             selectCategory={handleSelectCategory}
             cuisineType={cuisineType}
