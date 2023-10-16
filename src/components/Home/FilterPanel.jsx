@@ -14,6 +14,9 @@ export default function FilterPanel({
   selectAllCuisineType,
   selectedPrice,
   selectPrice,
+  ratingList,
+  selectedRating,
+  selectRating,
 }) {
   return (
     <Box p={2}>
@@ -50,6 +53,16 @@ export default function FilterPanel({
           Price Range
         </Typography>
         <SliderProton value={selectedPrice} selectHandler={selectPrice} />
+      </Box>
+      <Box mb={4}>
+        <Typography variant="h6" fontWeight={600} mb={1}>
+          Rating
+        </Typography>
+        <FilterListToggle
+          options={ratingList}
+          value={selectedRating}
+          selectToggle={selectRating}
+        />
       </Box>
     </Box>
   );
