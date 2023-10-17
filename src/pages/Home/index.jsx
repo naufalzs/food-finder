@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, Grid } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Drawer,
+  Fab,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { Close, FilterList } from "@mui/icons-material";
 
 import FilterPanel from "@/components/Home/FilterPanel";
 import ResultList from "@/components/Home/ResultList";
@@ -124,12 +134,19 @@ export default function Home() {
     selectedRating,
   ]);
 
+  // Responsive function
+  const isLaptop = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const [isDrawer, setIsDrawer] = useState(false);
+
+  const toggleDrawer = (isOpen) => setIsDrawer(isOpen);
+
   return (
     <Box>
       <SearchBar value={searchInput} changeInput={handleSearch} />
       <Divider />
       <Grid container>
-        <Grid item sx={{ width: 300 }}>
+        <Grid item sx={{ width: 300, display: isLaptop ? "none" : "block" }}>
           <FilterPanel
             categoryList={categoryList}
             selectedCategory={selectedCategory}
@@ -148,6 +165,61 @@ export default function Home() {
           {list.length > 0 ? <ResultList list={list} /> : <EmptyList />}
         </Grid>
       </Grid>
+
+      {/* Mobile Section */}
+      <Fab
+        size="medium"
+        color="warning"
+        aria-label="filter"
+        sx={{
+          position: "fixed",
+          top: 90,
+          left: 14,
+            display: isLaptop ? "flex" : "none",
+        }}
+        onClick={() => toggleDrawer(true)}
+      >
+        <FilterList />
+      </Fab>
+      <Drawer
+        anchor={"left"}
+        open={isDrawer}
+        onClose={() => toggleDrawer(false)}
+      >
+          <Box
+            sx={{ width: isMobile ? "100vw" : 300 }}
+            role="presentation"
+            p={2}
+          >
+          <Box mb={1}>
+            <Stack
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              mb={0.5}
+            >
+              <Typography variant="h5" fontWeight={700}>
+                Filters
+              </Typography>
+              <Close onClick={() => toggleDrawer(false)} />
+            </Stack>
+            <Divider />
+          </Box>
+          <FilterPanel
+            categoryList={categoryList}
+            selectedCategory={selectedCategory}
+            selectCategory={handleSelectCategory}
+            cuisineType={cuisineType}
+            selectCuisineType={handleCuisineType}
+            selectAllCuisineType={handleAllCuisineType}
+            selectedPrice={selectedPrice}
+            selectPrice={handleSelectPrice}
+            ratingList={newRatingList}
+            selectedRating={selectedRating}
+            selectRating={handleSelectRating}
+          />
+        </Box>
+      </Drawer>
     </Box>
   );
 }
