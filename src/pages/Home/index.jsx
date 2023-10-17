@@ -145,7 +145,7 @@ export default function Home() {
           />
         </Grid>
         <Grid item xs>
-          {list.length > 0 ? <ResultList /> : <EmptyList />}
+          {list.length > 0 ? <ResultList list={list} /> : <EmptyList />}
         </Grid>
       </Grid>
     </Box>
