@@ -5,6 +5,7 @@ import {
   CardMedia,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 
 export const CardItem = ({
@@ -15,6 +16,7 @@ export const CardItem = ({
   deliveryFee,
   rating,
 }) => {
+  const onlyLaptop = useMediaQuery((theme) => theme.breakpoints.only("md"));
   const deliveryTime = serviceTime.replace("-", " - ").replace("m", " m");
 
   return (
@@ -34,7 +36,7 @@ export const CardItem = ({
           alignItems={"flex-start"}
         >
           <Typography
-            width={"60%"}
+            width={onlyLaptop ? "55%" : "60%"}
             variant="h5"
             component="h2"
             fontWeight={500}
@@ -55,7 +57,9 @@ export const CardItem = ({
             <Typography variant="h6" component="h3" fontWeight={300}>
               Price
             </Typography>
-            <Typography variant="subtitle2" fontSize={18}>${price}</Typography>
+            <Typography variant="subtitle2" fontSize={18}>
+              ${price}
+            </Typography>
           </Box>
           {/* right section */}
           <Stack width="55%">
