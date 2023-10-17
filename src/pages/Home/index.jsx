@@ -84,7 +84,8 @@ export default function Home() {
     if (searchInput) {
       updatedList = updatedList.filter((item) => {
         return (
-          item.title.toLowerCase().search(searchInput.toLowerCase().trim()) !== -1
+          item.title.toLowerCase().search(searchInput.toLowerCase().trim()) !==
+          -1
         );
       });
     }
@@ -94,6 +95,8 @@ export default function Home() {
       updatedList = updatedList.filter((item) => {
         return selectedCategory.includes(item.category);
       });
+    } else {
+      return setList([]);
     }
 
     // Cuisine Filter
@@ -105,6 +108,8 @@ export default function Home() {
       updatedList = updatedList.filter((item) => {
         return selectedCuisine.includes(item.cuisine);
       });
+    } else {
+      return setList([]);
     }
 
     // Price Range Filter
@@ -120,6 +125,8 @@ export default function Home() {
       updatedList = updatedList.filter((item) => {
         return selectedRating.includes(item.rating);
       });
+    } else {
+      return setList([]);
     }
 
     setList(updatedList);
