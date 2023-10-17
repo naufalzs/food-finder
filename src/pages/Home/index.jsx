@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Box,
+  Container,
   Divider,
   Drawer,
   Fab,
@@ -142,84 +143,86 @@ export default function Home() {
   const toggleDrawer = (isOpen) => setIsDrawer(isOpen);
 
   return (
-    <Box>
-      <SearchBar value={searchInput} changeInput={handleSearch} />
-      <Divider />
-      <Grid container>
-        <Grid item sx={{ width: 300, display: isLaptop ? "none" : "block" }}>
-          <FilterPanel
-            categoryList={categoryList}
-            selectedCategory={selectedCategory}
-            selectCategory={handleSelectCategory}
-            cuisineType={cuisineType}
-            selectCuisineType={handleCuisineType}
-            selectAllCuisineType={handleAllCuisineType}
-            selectedPrice={selectedPrice}
-            selectPrice={handleSelectPrice}
-            ratingList={newRatingList}
-            selectedRating={selectedRating}
-            selectRating={handleSelectRating}
-          />
+    <Container disableGutters maxWidth="xl">
+      <Box>
+        <SearchBar value={searchInput} changeInput={handleSearch} />
+        <Divider />
+        <Grid container>
+          <Grid item sx={{ width: 300, display: isLaptop ? "none" : "block" }}>
+            <FilterPanel
+              categoryList={categoryList}
+              selectedCategory={selectedCategory}
+              selectCategory={handleSelectCategory}
+              cuisineType={cuisineType}
+              selectCuisineType={handleCuisineType}
+              selectAllCuisineType={handleAllCuisineType}
+              selectedPrice={selectedPrice}
+              selectPrice={handleSelectPrice}
+              ratingList={newRatingList}
+              selectedRating={selectedRating}
+              selectRating={handleSelectRating}
+            />
+          </Grid>
+          <Grid item xs>
+            {list.length > 0 ? <ResultList list={list} /> : <EmptyList />}
+          </Grid>
         </Grid>
-        <Grid item xs>
-          {list.length > 0 ? <ResultList list={list} /> : <EmptyList />}
-        </Grid>
-      </Grid>
 
-      {/* Mobile Section */}
-      <Fab
-        size="medium"
-        color="warning"
-        aria-label="filter"
-        sx={{
-          position: "fixed",
-          top: 90,
-          left: 14,
+        {/* Mobile Section */}
+        <Fab
+          size="medium"
+          color="warning"
+          aria-label="filter"
+          sx={{
+            position: "fixed",
+            top: 90,
+            left: 14,
             display: isLaptop ? "flex" : "none",
-        }}
-        onClick={() => toggleDrawer(true)}
-      >
-        <FilterList />
-      </Fab>
-      <Drawer
-        anchor={"left"}
-        open={isDrawer}
-        onClose={() => toggleDrawer(false)}
-      >
+          }}
+          onClick={() => toggleDrawer(true)}
+        >
+          <FilterList />
+        </Fab>
+        <Drawer
+          anchor={"left"}
+          open={isDrawer}
+          onClose={() => toggleDrawer(false)}
+        >
           <Box
             sx={{ width: isMobile ? "100vw" : 300 }}
             role="presentation"
             p={2}
           >
-          <Box mb={1}>
-            <Stack
-              flexDirection={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              mb={0.5}
-            >
-              <Typography variant="h5" fontWeight={700}>
-                Filters
-              </Typography>
-              <Close onClick={() => toggleDrawer(false)} />
-            </Stack>
-            <Divider />
+            <Box mb={1}>
+              <Stack
+                flexDirection={"row"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                mb={0.5}
+              >
+                <Typography variant="h5" fontWeight={700}>
+                  Filters
+                </Typography>
+                <Close onClick={() => toggleDrawer(false)} />
+              </Stack>
+              <Divider />
+            </Box>
+            <FilterPanel
+              categoryList={categoryList}
+              selectedCategory={selectedCategory}
+              selectCategory={handleSelectCategory}
+              cuisineType={cuisineType}
+              selectCuisineType={handleCuisineType}
+              selectAllCuisineType={handleAllCuisineType}
+              selectedPrice={selectedPrice}
+              selectPrice={handleSelectPrice}
+              ratingList={newRatingList}
+              selectedRating={selectedRating}
+              selectRating={handleSelectRating}
+            />
           </Box>
-          <FilterPanel
-            categoryList={categoryList}
-            selectedCategory={selectedCategory}
-            selectCategory={handleSelectCategory}
-            cuisineType={cuisineType}
-            selectCuisineType={handleCuisineType}
-            selectAllCuisineType={handleAllCuisineType}
-            selectedPrice={selectedPrice}
-            selectPrice={handleSelectPrice}
-            ratingList={newRatingList}
-            selectedRating={selectedRating}
-            selectRating={handleSelectRating}
-          />
-        </Box>
-      </Drawer>
-    </Box>
+        </Drawer>
+      </Box>
+    </Container>
   );
 }
