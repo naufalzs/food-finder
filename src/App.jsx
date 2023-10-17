@@ -10,6 +10,9 @@ export default function App() {
     },
     typography: {
       fontFamily: ["Raleway", "sans-serif"].join(","),
+      subtitle2: {
+        fontFamily: "sans-serif",
+      },
     },
   });
   return (
