@@ -175,7 +175,7 @@ export default function Home() {
           aria-label="filter"
           sx={{
             position: "fixed",
-            top: 90,
+            top: 85,
             left: 14,
             display: isLaptop ? "flex" : "none",
           }}
