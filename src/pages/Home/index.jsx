@@ -3,10 +3,10 @@ import {
   Box,
   Container,
   Divider,
-  Drawer,
   Fab,
   Grid,
   Stack,
+  SwipeableDrawer,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -182,18 +182,20 @@ export default function Home() {
           aria-label="filter"
           sx={{
             position: "fixed",
-            top: 85,
-            left: 14,
+            top: isMobile ? 255 : 85,
+            left: isMobile ? "auto" : 14,
+            right: isMobile ? "8%" : "auto",
             display: isLaptop ? "flex" : "none",
           }}
           onClick={() => toggleDrawer(true)}
         >
           <FilterList />
         </Fab>
-        <Drawer
+        <SwipeableDrawer
           anchor={"left"}
           open={isDrawer}
           onClose={() => toggleDrawer(false)}
+          onOpen={() => toggleDrawer(true)}
         >
           <Box
             sx={{ width: isMobile ? "100vw" : 300 }}
@@ -228,7 +230,7 @@ export default function Home() {
               selectRating={handleSelectRating}
             />
           </Box>
-        </Drawer>
+        </SwipeableDrawer>
       </Box>
     </Container>
   );
